@@ -11,7 +11,7 @@ terraform {
 
   backend "s3" {
     bucket = "curso-terraform-carlossilva"
-    key    = "aws-vpc/terraform.tfstate"
+    key    = "aws-vm-provisioners/terraform.tfstate"
     region = "sa-east-1"
   }
 }
@@ -24,5 +24,14 @@ provider "aws" {
       owner      = "Carlos Silva"
       managed-by = "Terraform"
     }
+  }
+}
+
+data "terraform_remote_state" "vpc" {
+  backend = "s3"
+  config = {
+    bucket = "curso-terraform-carlossilva"
+    key    = "aws-vpc/terraform.tfstate"
+    region = "sa-east-1"
   }
 }
